@@ -33,6 +33,9 @@ const quotes = [
   { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" }
 ];
 
+app.get('/', (req, res) => {
+  res.send('Backend is working!');
+});
 
 app.get('/api/quotes', (req, res) => {
   console.log(quotes);
