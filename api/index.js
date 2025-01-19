@@ -4,7 +4,7 @@ const port = 3000;
 const cors = require('cors');
 
 // Allow only this domain (Netlify frontend)
-const allowedOrigins = ['https://genuine-strudel-764d7f.netlify.app'];
+const allowedOrigins = ['https://quotes-generator-twitter.netlify.app/'];
 
 const corsOptions = {
   origin: function (origin, callback) {
