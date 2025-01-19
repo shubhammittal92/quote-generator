@@ -34,7 +34,7 @@ const quotes = [
 ];
 
 app.get('/', (req, res) => {
-  res.send('Backend is working!');
+    res.redirect('/api/quotes');
 });
 
 app.get('/api/quotes', (req, res) => {
