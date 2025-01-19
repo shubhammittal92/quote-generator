@@ -3,9 +3,20 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 
+// Allow only this domain (Netlify frontend)
+const allowedOrigins = ['https://genuine-strudel-764d7f.netlify.app'];
+
 const corsOptions = {
-  origin: 'http://127.0.0.1:5500', // Allow only this domain
-  credentials: true, // Enable sending cookies with requests
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      // Allow requests from Netlify (or no origin for localhost/Postman requests)
+      callback(null, true);
+    } else {
+      // Reject requests from other origins
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Enable sending cookies with requests (optional)
 };
 
 app.use(cors(corsOptions));
@@ -33,14 +44,15 @@ const quotes = [
   { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" }
 ];
 
+// Redirect root to /api/quotes
 app.get('/', (req, res) => {
-    res.redirect('/api/quotes');
+  res.redirect('/api/quotes');
 });
 
+// API route for quotes
 app.get('/api/quotes', (req, res) => {
-  console.log(quotes);
-  
- return  res.json(quotes);
+  console.log(quotes); // Debugging, can remove later
+  return res.json(quotes);
 });
 
 app.listen(port, () => {
